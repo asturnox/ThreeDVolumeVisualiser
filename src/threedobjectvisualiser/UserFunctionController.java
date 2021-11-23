@@ -10,8 +10,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Main controller for the UserFunction prompt. Leads to the opening of the Viewer window.
+ */
 public class UserFunctionController {
 
+    /**
+     * Opens Viewer window.
+     */
     public void openViewWindow() {
         Parent root;
         try {
@@ -26,6 +32,10 @@ public class UserFunctionController {
         }
     }
 
+    /**
+     * Run when confirmButton is clicked: sets userFunctionString to the string left by the user in functionText.
+     * Subsequently opens Viewer window.
+     */
     public void setUserFunction() {
          ViewerController.userFunctionString = functionText.getText();
          openViewWindow();

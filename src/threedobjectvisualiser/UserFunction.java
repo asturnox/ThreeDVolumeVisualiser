@@ -3,8 +3,12 @@ package threedobjectvisualiser;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import java.util.function.Function;
 
-public class UserFunction {
+/**
+ * Represents a numeric double -> double function interpreted by a user-given string.
+ */
+public class UserFunction implements Function<Double, Double> {
     private final String functionString;
     private final static ScriptEngineManager manager = new ScriptEngineManager();
     private final static ScriptEngine engine = manager.getEngineByName("js");
@@ -13,7 +17,12 @@ public class UserFunction {
         this.functionString = functionString;
     }
 
-    public int apply(double input) {
+    /**
+     * Applies a given input to the functionString and evaluates result.
+     * @param input input of function
+     * @return output of interpreted function
+     */
+    public Double apply(Double input) {
         try {
             StringBuilder evalString = new StringBuilder();
             for (char character : functionString.toCharArray()) {
@@ -23,12 +32,12 @@ public class UserFunction {
                     evalString.append(character);
             }
 
-            return (int) Math.round((Double) engine.eval(evalString.toString()));
+           return (Double) engine.eval(evalString.toString());
         } catch (ScriptException e) {
             System.err.println("Error calculating function.");
             e.printStackTrace();
         }
 
-        return 0;
+        return 0.0;
     }
 }
